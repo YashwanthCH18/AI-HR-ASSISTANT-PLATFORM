@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: HR assistant voice transcription, routed chat, and speech synthesis
+Parameters:
+  JwtSecret: { Type: String, NoEcho: true }
+  RouterBaseUrl: { Type: String }
+  SarvamApiKey: { Type: String, NoEcho: true }
+Globals:
+  Function:
+    Runtime: nodejs22.x
+    Timeout: 60
+    MemorySize: 512
+Resources:
+  VoiceApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      BinaryMediaTypes:
+        - multipart/form-data
+  VoiceFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../..
+      Handler: services/voice/lambda.handler
+      Environment:
+        Variables:
+          JWT_SECRET: !Ref JwtSecret
+          ROUTER_BASE_URL: !Ref RouterBaseUrl
+          SARVAM_API_KEY: !Ref SarvamApiKey
+      Events:
+        Root: { Type: Api, Properties: { RestApiId: !Ref VoiceApi, Path: /, Method: ANY } }
+        Proxy: { Type: Api, Properties: { RestApiId: !Ref VoiceApi, Path: '/{proxy+}', Method: ANY } }
+Outputs:
+  ApiUrl:
+    Value: !Sub 'https://${VoiceApi}.execute-api.${AWS::Region}.amazonaws.com/Prod'

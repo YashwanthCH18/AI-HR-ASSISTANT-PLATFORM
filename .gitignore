@@ -1,0 +1,15 @@
+**/node_modules/
+**/build/
+**/dist/
+**/.aws-sam/
+**/.serverless/
+**/coverage/
+**/.env
+**/.env.*
+!**/.env.example
+*.log
+*.wav
+*.mp3
+*.mp4
+.DS_Store
+Thumbs.db

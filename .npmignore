@@ -1,0 +1,10 @@
+.aws-sam/
+.git/
+**/node_modules/
+**/.env
+**/.env.*
+!**/.env.example
+tests/
+docs/
+database/
+*.log

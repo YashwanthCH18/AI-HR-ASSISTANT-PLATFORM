@@ -1,0 +1,36 @@
+{
+  "name": "hackthestay-backend",
+  "version": "1.0.0",
+  "private": true,
+  "files": [
+    "shared/*.js",
+    "services/router/src/**/*.js",
+    "services/router/lambda.js",
+    "services/admin/*.js",
+    "services/employee/*.js",
+    "services/voice/*.js"
+  ],
+  "description": "Router, admin, employee, and voice services for the hackathon HR assistant",
+  "scripts": {
+    "test": "node --test tests/services.test.js",
+    "check": "npm --prefix services/router run check && npm --prefix services/admin run check && npm --prefix services/employee run check && npm --prefix services/voice run check",
+    "schema:check": "node database/check-schema.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "axios": "^1.6.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "multer": "^2.0.1",
+    "mysql2": "^3.14.1",
+    "sequelize": "^6.37.7",
+    "serverless-http": "^3.2.0",
+    "uuid": "^11.1.0"
+  }
+}
